@@ -154,10 +154,6 @@ Future<void> readExcelFile(String fileName) async {
     }
   }
 
-  //debugPrint("name: " + names.toString());
-  //debugPrint("number: " + numbers.toString());
-  //debugPrint("country: " + countries.toString());
-
   //format phone numbers
   formatPhoneNumbers(
       names, numbers, countries, otherNames, otherNumbers, otherCountries);
@@ -175,15 +171,12 @@ Future<void> readExcelFile(String fileName) async {
   }
 
   Sheet otherSheet = excel['otherData'];
-  otherSheet.insertRowIterables(
-      [names[0], numbers[0], countries[0], "WAPI Format"], 0);
+  otherSheet.insertRowIterables([names[0], numbers[0], countries[0]], 0);
+
   //insert row by row - other numbers
   for (int j = 1; j < otherNumbers.length; j++) {
-    //debugPrint("name j: " + otherNames[j]);
-    // var wtspFormat = otherNames[j] + ", " + otherNumbers[j];
-
-    // otherSheet.insertRowIterables(
-    //     [otherNames[j], otherNumbers[j], otherCountries[j], wtspFormat], j);
+    otherSheet.insertRowIterables(
+        [otherNames[j], otherNumbers[j], otherCountries[j]], j);
   }
 
   // Save the Changes in file
@@ -231,13 +224,9 @@ void formatPhoneNumbers(
         } else {
           debugPrint("others: " + names[i] + numbers[i] + countries[i]);
           //save in other
-          // otherNames[j] = names[i];
-          // otherNumbers[j] = names[i];
-          // otherCountries[j] = countries[i];
-          // j++;
-          // debugPrint("sucess");
-          //debugPrint(
-          //"others: " + otherNames[j] + otherNumbers[j] + otherCountries[j]);
+          otherNames.add(names[i]);
+          otherNumbers.add(numbers[i]);
+          otherCountries.add(countries[i]);
         }
       } else if (numlength == 9) {
         if (countries[i].toLowerCase() == "lk" ||
@@ -252,13 +241,9 @@ void formatPhoneNumbers(
         } else {
           debugPrint("others: " + names[i] + numbers[i] + countries[i]);
           //save in other
-          // otherNames[j] = names[i];
-          // otherNumbers[j] = names[i];
-          // otherCountries[j] = countries[i];
-          // debugPrint(
-          //     "others: " + otherNames[j] + otherNumbers[j] + otherCountries[j]);
-          // j++;
-          debugPrint("sucess");
+          otherNames.add(names[i]);
+          otherNumbers.add(numbers[i]);
+          otherCountries.add(countries[i]);
         }
       } else if (numlength == 10) {
         if (countries[i].toLowerCase() == "in" ||
@@ -280,23 +265,17 @@ void formatPhoneNumbers(
         } else {
           debugPrint("others: " + names[i] + numbers[i] + countries[i]);
           //save in other
-          // otherNames[j] = names[i];
-          // otherNumbers[j] = names[i];
-          // otherCountries[j] = countries[i];
-          // j++;
-          // debugPrint(
-          //     "others: " + otherNames[j] + otherNumbers[j] + otherCountries[j]);
+          otherNames.add(names[i]);
+          otherNumbers.add(numbers[i]);
+          otherCountries.add(countries[i]);
         }
       } else {
         debugPrint(
             "others less than 8: " + names[i] + numbers[i] + countries[i]);
         //save in other
-        // otherNames[j] = names[i];
-        // otherNumbers[j] = names[i];
-        // otherCountries[j] = countries[i];
-        // j++;
-        // debugPrint(
-        //     "others: " + otherNames[j] + otherNumbers[j] + otherCountries[j]);
+        otherNames.add(names[i]);
+        otherNumbers.add(numbers[i]);
+        otherCountries.add(countries[i]);
       }
     } else {
       numbers[i] = "+" + numbers[i];
